@@ -1,0 +1,38 @@
+server:
+  port: 3344
+
+spring:
+  application:
+    name: cloud-config-center  #注册进Eureka 服务器的微服务名
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://gitee.com/ssy01/springcloud-config.git # gitee 上的仓库地址
+          ## 搜索目录
+          search-paths:
+            - springcloud-config
+          username: 18339695606@163.com
+          password: ottf1234
+      ## 读取分支
+      label: master
+  #rabbitmq 相关配置 15672 是web管理界面的端口；5672是mq 访问的端口
+  rabbitmq:
+    host: 10.211.55.6
+    port: 5672
+    username: admin
+    password: admin
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:7001/eureka #单机版
+
+## rabbitmq 相关配置 之 暴露 bus 刷新配置的端点
+management:
+  endpoints: # 暴露bus刷新配置的端点
+    web:
+      exposure:
+        include: "bus-refresh"

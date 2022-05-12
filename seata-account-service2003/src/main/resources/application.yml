@@ -1,0 +1,51 @@
+server:
+  port: 2003
+
+spring:
+  application:
+    name: seata-account-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        username: nacos
+        password: nacos
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://10.211.55.6:3306/seata_account?useSSL=false
+    username: root
+    password: root112233
+
+feign:
+  hystrix:
+    enabled: false
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+
+logging:
+  level:
+    io:
+      seata: info
+
+seata:
+  tx-service-group: tx-order-group
+  enabled: true
+  enable-auto-data-source-proxy: true
+  service:
+    vgroup-mapping:
+      tx-order-group: default
+  config:
+    type: nacos
+    nacos:
+      server-addr: 127.0.0.1:8848
+      username: nacos
+      password: nacos
+
+  registry:
+    type: nacos
+    nacos:
+      server-addr: 127.0.0.1:8848
+      username: nacos
+      password: nacos
+      group: SEATA_GROUP
